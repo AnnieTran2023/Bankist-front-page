@@ -28,3 +28,26 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+const header = document.querySelector('.header');
+const allSections = document.querySelectorAll('.section');
+console.log(allSections);
+const sectionID = document.getElementById('section--1');
+document.getElementsByTagName('button');
+
+// .insertAdjacentHTML
+const message = document.createElement('div');
+message.classList.add('cookie-message');
+// message.textContent = 'We use cookies for fun.'
+message.innerHTML = 'we use cookies to enhance your browsing experience <button class="btn btn--close-cookie">Got it</button>';
+header.append(message);
+document.querySelector('.btn--close-cookie').
+addEventListener('click',function(){
+  message.remove();
+})
+message.style.backgroundColor ='#37383d';
+message.style.width = '120%';
+console.log(message.style.backgroundColor);
+console.log(getComputedStyle(message).height);
+message.style.height =  Number.parseFloat(getComputedStyle(message).height,10) + 40 + 'px';
+ 
