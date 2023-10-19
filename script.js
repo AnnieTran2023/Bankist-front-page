@@ -51,3 +51,18 @@ console.log(message.style.backgroundColor);
 console.log(getComputedStyle(message).height);
 message.style.height =  Number.parseFloat(getComputedStyle(message).height,10) + 40 + 'px';
  
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  // Get the coordinates of section1 and the button.
+  const s1coords = section1.getBoundingClientRect();
+  const buttonCoords = e.target.getBoundingClientRect();
+  // Log the coordinates and current scroll position.
+  console.log('s1coords:', s1coords);
+  console.log('Button coords:', buttonCoords);
+  console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
+  // Scroll to section1 with smooth scrolling.
+  section1.scrollIntoView({behavior:'smooth'});
+});
+
