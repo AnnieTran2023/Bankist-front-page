@@ -7,6 +7,11 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+const header = document.querySelector('.header');
+const allSections = document.querySelectorAll('.section');
+const sectionID = document.getElementById('section--1');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -29,16 +34,9 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-const header = document.querySelector('.header');
-const allSections = document.querySelectorAll('.section');
-console.log(allSections);
-const sectionID = document.getElementById('section--1');
-document.getElementsByTagName('button');
-
 // .insertAdjacentHTML
 const message = document.createElement('div');
 message.classList.add('cookie-message');
-// message.textContent = 'We use cookies for fun.'
 message.innerHTML = 'we use cookies to enhance your browsing experience <button class="btn btn--close-cookie">Got it</button>';
 header.append(message);
 document.querySelector('.btn--close-cookie').
@@ -50,10 +48,8 @@ message.style.width = '120%';
 console.log(message.style.backgroundColor);
 console.log(getComputedStyle(message).height);
 message.style.height =  Number.parseFloat(getComputedStyle(message).height,10) + 40 + 'px';
- 
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
 
+//Smooth scrolling
 btnScrollTo.addEventListener('click', function (e) {
   // Get the coordinates of section1 and the button.
   const s1coords = section1.getBoundingClientRect();
@@ -64,5 +60,13 @@ btnScrollTo.addEventListener('click', function (e) {
   console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
   // Scroll to section1 with smooth scrolling.
   section1.scrollIntoView({behavior:'smooth'});
+});
+
+//Page navigation
+document.querySelectorAll('.nav__link').forEach(function(el){
+  el.addEventListener('click',function(e){
+    e.preventDefault();
+    
+  })
 });
 
