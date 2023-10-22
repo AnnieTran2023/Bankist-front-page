@@ -84,5 +84,13 @@ document.querySelector('.nav__links').addEventListener('click',function(e){
   }
 });
 
+//Tabbed component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
 
+tabContainer.addEventListener('click', function(e){
+  const clicked = e.target.closest('.operations__tab');
+  console.log(clicked);
+})
  
