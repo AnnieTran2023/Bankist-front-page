@@ -54,10 +54,6 @@ btnScrollTo.addEventListener('click', function (e) {
   // Get the coordinates of section1 and the button.
   const s1coords = section1.getBoundingClientRect();
   const buttonCoords = e.target.getBoundingClientRect();
-  // Log the coordinates and current scroll position.
-  console.log('s1coords:', s1coords);
-  console.log('Button coords:', buttonCoords);
-  console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
   // Scroll to section1 with smooth scrolling.
   section1.scrollIntoView({behavior:'smooth'});
 });
@@ -76,7 +72,6 @@ btnScrollTo.addEventListener('click', function (e) {
 // determine what element originated the event
 document.querySelector('.nav__links').addEventListener('click',function(e){
   e.preventDefault();
-  console.log(e.target); 
   //match strategy
   if(e.target.classList.contains('nav__link')) {
     const id = e.target.getAttribute('href');
@@ -91,7 +86,6 @@ const tabsContent = document.querySelectorAll('.operations__content');
 
 tabContainer.addEventListener('click', function(e){
   const clicked = e.target.closest('.operations__tab');
-  console.log(clicked);
   //guard clause
   if(!clicked) return;
   //active tab
@@ -105,19 +99,41 @@ tabContainer.addEventListener('click', function(e){
 });
  
 //Menu fade animation
-const nav = document.querySelector('.nav');
-const handleHover = function (e, opacity){
+// const nav = document.querySelector('.nav');
+// const handleHover = function (e, opacity){
 
-    if(e.target.classList.contains('nav__link')){
-      const link = e.target;
-      const siblings = link.closest('.nav').querySelectorAll('.nav__link');
-      const logo = link.closest('.nav').querySelector('img');
-      siblings.forEach(el => {
-        if(el !== link) el.style.opacity = this;
-      });
-      logo.style.opacity = this;
-    }
-  };
-//mouseenter does not bubble 
-nav.addEventListener('mouseover',handleHover.bind(0.5));
-nav.addEventListener('mouseout', handleHover.bind(1));
+//     if(e.target.classList.contains('nav__link')){
+//       const link = e.target;
+//       const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+//       const logo = link.closest('.nav').querySelector('img');
+//       siblings.forEach(el => {
+//         if(el !== link) el.style.opacity = this;
+//       });
+//       logo.style.opacity = this;
+//     }
+//   };
+// //mouseenter does not bubble 
+// nav.addEventListener('mouseover',handleHover.bind(0.5));
+// nav.addEventListener('mouseout', handleHover.bind(1));
+
+// //sticky navigation
+// const initialCoords = section1.getBoundingClientRect();
+// window.addEventListener('scroll',function(e){
+//   if(window.scrollY > initialCoords.top) nav.classList.add('sticky')
+//   else nav.classList.remove('sticky');
+// });
+
+//Better way to have menu fade animation using IntersectionObserver API
+
+const heading = document.querySelector('.header');
+const stickyNav = function(entries){
+  const [entry] = entries;
+  if(!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+}
+const headingObserver = new IntersectionObserver(stickyNav,{
+  root:null,
+  threshold: 0,
+  rootMargin: '-90px',
+});
+headingObserver.observe(heading);
