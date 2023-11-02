@@ -153,7 +153,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 });
 allSection.forEach(function(section){
   sectionObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 //Loading lazy images
@@ -177,3 +177,28 @@ const imgObserver = new IntersectionObserver(loadImg, {
   threshold: 0
 })
 imgTargets.forEach(img => imgObserver.observe(img));
+
+// Slider
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+slider.style.transform = 'scale(0.3) translateX(-800px)';
+slider.style.overflow = 'visible';
+
+let curSlide = 0;
+const maxSlide = slides.length;
+
+
+slides.forEach((s,i) => s.style.transform = `translateX(${100 *i}%)`);
+//Next slide
+btnRight.addEventListener('click', function(){
+  if (curSlide === maxSlide - 1){
+    curSlide =0;
+  } else {
+    curSlide++;
+  }
+  slides.forEach((s,i) => s.style.transform = `translateX(${100 *(i-curSlide)}%)`);
+});
+//curSlide = 1; -100% 0% 100% 200%
