@@ -184,21 +184,38 @@ const slider = document.querySelector('.slider');
 const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
 
-slider.style.transform = 'scale(0.3) translateX(-800px)';
-slider.style.overflow = 'visible';
+// slider.style.transform = 'scale(0.3) translateX(-800px)';
+// slider.style.overflow = 'visible';
 
 let curSlide = 0;
 const maxSlide = slides.length;
 
 
-slides.forEach((s,i) => s.style.transform = `translateX(${100 *i}%)`);
+const goToSlide = function (slide) {
+  slides.forEach((s,i) => s.style.transform = `translateX(${100 *(i-slide)}%)`)};
 //Next slide
-btnRight.addEventListener('click', function(){
+const nextSlide = function () {
   if (curSlide === maxSlide - 1){
     curSlide =0;
   } else {
     curSlide++;
   }
-  slides.forEach((s,i) => s.style.transform = `translateX(${100 *(i-curSlide)}%)`);
-});
+  goToSlide(curSlide);
+};
+const previousSlide = function(){
+  if (curSlide === 0){
+    curSlide = maxSlide;
+  } else {
+    curSlide --;
+  }
+  goToSlide(curSlide);
+}
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', previousSlide)
 //curSlide = 1; -100% 0% 100% 200%
+
+document.addEventListener('keydown', function(e){
+  console.log(e);
+  e.key === 'ArrowLeft' && previousSlide();
+  e.key === 'ArrowRight' && nextSlide();
+})
